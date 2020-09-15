@@ -1,0 +1,139 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="Assignment_Web_Application_.Admin.Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+     <title>School Board</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="../Master.css" rel="stylesheet" type="text/css" />
+
+   
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+
+
+            
+   <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="Admin_Index_User.aspx">School Board</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="Admin_Index_User.aspx">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    
+
+        
+      <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome,<asp:Literal ID="litName" runat="server"></asp:Literal><asp:Image ID="ImgProfile2" width="30" style="border-radius:50%"  Height="30px" alt="" runat="server" /><b class="caret"></b></a>
+                        <ul class="dropdown-menu" >
+                            <li><asp:Image ID="ImgProfile" class="img-responsive" style="padding-left:20px" runat="server" width="120px" height="120px" /><a class="change" href="Admin_changePic.aspx" style="padding-top:5px">Change Picture</a></li>
+                            <li class="divider"></li> 
+                            <li><a href="Admin_User_Profile.aspx"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                            <li><a href="manage_post.aspx"><span class="glyphicon glyphicon-wrench"></span> Admin Panel</a></li>
+                            <li><a href="Admin_setting.aspx"><span class="glyphicon glyphicon-lock"></span> Setting</a></li>
+                          
+                            <li class="divider"></li>
+                             <li><a runat="server" onserverclick="Logout" CausesValidation="false" ><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+    
+
+      <form class="navbar-form navbar-right" action="/action_page.php"  >
+  <div class="input-group" style="width:200px;padding-top:10px;"  >
+    <input type="text" class="form-control" placeholder="Search"  >
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </div>
+  </div>
+</form>
+    
+       
+
+      </div>
+
+</nav>
+
+  
+      
+
+   
+
+<div class="container-fluid text-center">
+  <div class="row content" >
+
+
+    <div class="col-sm-3 sidenav" style="float:left;margin-left:20px;margin-top:30px;position:-webkit-sticky;position:sticky;top:30px" >
+
+    	    <ul class="nav nav-pills nav-stacked well">
+              <li ><a href="Admin_Index_User.aspx" class="btn btn-sucess navbar-btn btn-block">  Home   <span class="glyphicon glyphicon-home"></span></a></li>
+              <li><hr/></li>
+              <li><a href="Admin_User_Profile.aspx"><span class="glyphicon glyphicon-user"></span> User Information</a></li>
+                 <li><a href="Admin_setting.aspx"><span class="glyphicon glyphicon-lock"></span> Setting</a></li>
+                <li><a href="manage_post.aspx"><span class="glyphicon glyphicon-wrench"></span> Admin Panel</a></li>
+                <li><hr /></li>
+             <li><a href="#" runat="server" onserverclick="Logout"  CausesValidation="false" ><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+
+    </div>
+       <div class="col-sm-8 text-left">
+     
+           <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+
+    
+</div>
+
+
+
+
+  </div>
+</div>
+            <footer class="container-fluid text-center" style="background-color:#f8f8f8">
+                <script>
+  $(function(){
+    function footerPosition(){
+        $("footer").removeClass("fixed-bottom");
+        var contentHeight = document.body.scrollHeight,//网页正文全文高度
+            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        if(!(contentHeight > winHeight)){
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+            $("footer").addClass("fixed-bottom");
+        }
+    }
+    footerPosition();
+    $(window).resize(footerPosition);
+});
+  </script>
+  <p style="color: #000000">&copy;copyright 2019 School Board</p>
+</footer>
+
+
+           
+        </div>
+    </form>
+</body>
+</html>

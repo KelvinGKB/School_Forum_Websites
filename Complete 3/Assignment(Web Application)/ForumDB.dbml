@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Forum" Class="ForumDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Forum.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ForumConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Bookmark" Member="Bookmarks">
+    <Type Name="Bookmark">
+      <Column Name="postID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="userID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Post_Bookmark" Member="Post" ThisKey="postID" OtherKey="postID" Type="Post" IsForeignKey="true" />
+      <Association Name="UserProfile_Bookmark" Member="UserProfile" ThisKey="userID" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="catID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Category_SubCategory" Member="SubCategories" ThisKey="catID" OtherKey="catID" Type="SubCategory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comment" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="comentId" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="userId" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="postId" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Post_Comment" Member="Post" ThisKey="postId" OtherKey="postID" Type="Post" IsForeignKey="true" />
+      <Association Name="UserProfile_Comment" Member="UserProfile" ThisKey="userId" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Friends_List" Member="Friends_Lists">
+    <Type Name="Friends_List">
+      <Column Name="userId" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="UserProfile_Friends_List" Member="UserProfile" ThisKey="userId" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Group_Member" Member="Group_Members">
+    <Type Name="Group_Member">
+      <Column Name="userID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="grpID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="position" Type="System.String" DbType="Char(1)" CanBeNull="true" />
+      <Association Name="GroupProfile_Group_Member" Member="GroupProfile" ThisKey="grpID" OtherKey="grpID" Type="GroupProfile" IsForeignKey="true" />
+      <Association Name="UserProfile_Group_Member" Member="UserProfile" ThisKey="userID" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GroupProfile" Member="GroupProfiles">
+    <Type Name="GroupProfile">
+      <Column Name="grpID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="GroupProfile_Group_Member" Member="Group_Members" ThisKey="grpID" OtherKey="grpID" Type="Group_Member" />
+      <Association Name="GroupProfile_Post" Member="Posts" ThisKey="grpID" OtherKey="grpID" Type="Post" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Post" Member="Posts">
+    <Type Name="Post">
+      <Column Name="postID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="subID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="userID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="grpID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="image" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Post_Bookmark" Member="Bookmarks" ThisKey="postID" OtherKey="postID" Type="Bookmark" />
+      <Association Name="Post_Comment" Member="Comments" ThisKey="postID" OtherKey="postId" Type="Comment" />
+      <Association Name="Post_Report" Member="Reports" ThisKey="postID" OtherKey="postID" Type="Report" />
+      <Association Name="Post_Like" Member="Likes" ThisKey="postID" OtherKey="postId" Type="Like" />
+      <Association Name="GroupProfile_Post" Member="GroupProfile" ThisKey="grpID" OtherKey="grpID" Type="GroupProfile" IsForeignKey="true" />
+      <Association Name="SubCategory_Post" Member="SubCategory" ThisKey="subID" OtherKey="subID" Type="SubCategory" IsForeignKey="true" />
+      <Association Name="UserProfile_Post" Member="UserProfile" ThisKey="userID" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Report" Member="Reports">
+    <Type Name="Report">
+      <Column Name="reportID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="reason" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="userID" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="postID" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Post_Report" Member="Post" ThisKey="postID" OtherKey="postID" Type="Post" IsForeignKey="true" />
+      <Association Name="UserProfile_Report" Member="UserProfile" ThisKey="userID" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubCategory" Member="SubCategories">
+    <Type Name="SubCategory">
+      <Column Name="subID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="catID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="SubCategory_Post" Member="Posts" ThisKey="subID" OtherKey="subID" Type="Post" />
+      <Association Name="Category_SubCategory" Member="Category" ThisKey="catID" OtherKey="catID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Likes" Member="Likes">
+    <Type Name="Like">
+      <Column Name="userId" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="postId" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Post_Like" Member="Post" ThisKey="postId" OtherKey="postID" Type="Post" IsForeignKey="true" />
+      <Association Name="UserProfile_Like" Member="UserProfile" ThisKey="userId" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Advertisment" Member="Advertisments">
+    <Type Name="Advertisment">
+      <Column Name="AdID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="image" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="link" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserProfile" Member="UserProfiles">
+    <Type Name="UserProfile">
+      <Column Name="UserID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="gender" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="position" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="recaptcha" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="image" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="socialId" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="privacy" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Association Name="UserProfile_Bookmark" Member="Bookmarks" ThisKey="UserID" OtherKey="userID" Type="Bookmark" />
+      <Association Name="UserProfile_Comment" Member="Comments" ThisKey="UserID" OtherKey="userId" Type="Comment" />
+      <Association Name="UserProfile_Friends_List" Member="Friends_List" ThisKey="UserID" OtherKey="userId" Type="Friends_List" Cardinality="One" />
+      <Association Name="UserProfile_Group_Member" Member="Group_Members" ThisKey="UserID" OtherKey="userID" Type="Group_Member" />
+      <Association Name="UserProfile_Post" Member="Posts" ThisKey="UserID" OtherKey="userID" Type="Post" />
+      <Association Name="UserProfile_Report" Member="Reports" ThisKey="UserID" OtherKey="userID" Type="Report" />
+      <Association Name="UserProfile_Like" Member="Likes" ThisKey="UserID" OtherKey="userId" Type="Like" />
+    </Type>
+  </Table>
+</Database>
